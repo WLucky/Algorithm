@@ -1,6 +1,11 @@
 #pragma once
-
-
+/********************************************************************
+ FileName: ThinkOflEinstein.h
+ Description: 爱因斯坦的思考题
+				
+ Author: wangpengjun
+ Created: 2016/9/15 12:23
+*********************************************************************/
 
 //表示属性的类型
 enum ITEM_TYPE
@@ -77,3 +82,109 @@ struct tagRelation
 
 /*******************************************************************************************************/
 //算法实现
+
+/*
+static int cnt = 0;
+void DoGroupsfinalCheck(GROUP *groups)
+{
+cnt++;
+if((cnt % 1000000) == 0)
+printf("%d\n", cnt);
+
+if(CheckAllGroupsBind(groups, binds) && CheckAllGroupsRelation(groups, relations))
+{
+PrintAllGroupsResult(groups, GROUPS_COUNT);
+}
+}
+*/
+
+/* 遍历房子颜色
+void EnumHouseColors(GROUP *groups, int groupIdx)
+{
+	if (groupIdx == GROUPS_COUNT) 
+	{
+		ArrangeHouseNations(groups);
+		return;
+	}
+
+	for (int i = COLOR_BLUE; i <= COLOR_YELLOW; i++)
+	{
+		if (!IsGroupItemValueUsed(groups, groupIdx, type_house, i))
+		{
+			groups[groupIdx].itemValue[type_house] = i;
+			if (i == COLOR_GREEN) //应用线索(4)：绿房子紧挨着白房子，在白房子的左边；
+			{
+				groups[++groupIdx].itemValue[type_house] = COLOR_WHITE;
+			}
+
+			EnumHouseColors(groups, groupIdx + 1);
+			if (i == COLOR_GREEN)
+			{
+				groupIdx--;
+			}
+		}
+	}
+}
+*/
+
+
+/*
+void EnumPeopleCigerts(GROUP *groups, int groupIdx)
+{
+if(groupIdx == GROUPS_COUNT) 
+{
+	DoGroupsfinalCheck(groups);
+	return;
+}
+
+for (int i = CIGARET_BLENDS; i <= CIGARET_BLUEMASTER; i++)
+{
+	if (!IsGroupItemValueUsed(groups, groupIdx, type_cigaret, i))
+	{
+		groups[groupIdx].itemValue[type_cigaret] = i;
+
+		EnumPeopleCigerts(groups, groupIdx + 1);
+	}
+}
+}
+
+*/
+
+/*
+int main(int argc, char* argv[])
+{
+	GROUP groups[GROUPS_COUNT] = { { 0 } };
+
+	EnumHouseColors(groups, 0);
+
+	return 0;
+}
+*/
+//总结：
+/*
+1.建立基本模型  int 数组来表示一组的状况  const int 某一属性如：白色 黄色等
+2.建立线索模型 这个分析了条件  然后建立了两种线索，第三种无法建立线索  则放置在遍历中 无需判断
+3.递归 穷举所有种类
+4.递归的结束条件用来判断
+if (groupIdx == GROUPS_COUNT)
+	{
+		ArrangeHouseNations(groups);
+		return;
+	}
+4.注意事项：
+遍历房子的递归中
+if(i == COLOR_GREEN) //应用线索(4)：绿房子紧挨着白房子，在白房子的左边；
+{
+groups[++groupIdx].itemValue[type_house] = COLOR_WHITE;
+}
+
+EnumHouseColors(groups, groupIdx + 1);
+if(i == COLOR_GREEN)
+{
+groupIdx--;
+}
+
+最后恢复现场，因为还会有下次循环，而此时该房子不是绿色，所以需要取消上次的假设。
+若递归中因为特殊情况进行了特殊处理，则递归后要进行回复。
+
+*/
